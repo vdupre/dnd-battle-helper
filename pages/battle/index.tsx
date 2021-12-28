@@ -1,11 +1,10 @@
 import type { NextPage } from "next";
-import { Layout } from "../components/layout";
-import { Nav } from "../components/layout/nav";
+import { Layout } from "../../components/layout";
 
 const Home: NextPage = () => {
   return (
     <Layout>
-      <Nav />
+      <h2>Battle</h2>
     </Layout>
   );
 };
