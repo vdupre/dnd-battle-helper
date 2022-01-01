@@ -14,3 +14,9 @@ export const createHeroFromName = (name: string): Hero => ({
   uuid: uuidV4(),
   name,
 });
+
+export const createBattleHeroFromHero = (hero: Hero): BattleHero => ({
+  ...hero,
+  hp: 0,
+  initiative: 0,
+});

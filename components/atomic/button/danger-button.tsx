@@ -1,11 +1,11 @@
 import React from "react";
 
-interface DangerButtonInput {
+interface DangerButtonProps {
   onClick: () => void;
   withIcon?: boolean;
 }
 
-export const DangerButton: React.FC<DangerButtonInput> = ({
+export const DangerButton: React.FC<DangerButtonProps> = ({
   onClick,
   children,
   withIcon = false,

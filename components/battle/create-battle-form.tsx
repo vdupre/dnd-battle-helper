@@ -1,12 +1,12 @@
 import React, { useRef } from "react";
-import { createHeroFromName, Hero } from "../../models/hero";
+import { Battle, createBattleFromName } from "../../models/battle";
 import { PrimaryButton } from "../atomic/button/primary-button";
 
-interface HeroFormProps {
-  onCreate: (newHero: Hero) => void;
+interface BattleFormProps {
+  onCreate: (newBattle: Battle) => void;
 }
 
-export const CreateHeroForm: React.FC<HeroFormProps> = ({ onCreate }) => {
+export const CreateBattleForm: React.FC<BattleFormProps> = ({ onCreate }) => {
   const namePropsRef = useRef<HTMLInputElement>();
 
   const handleCreateClick = () => {
@@ -22,12 +22,12 @@ export const CreateHeroForm: React.FC<HeroFormProps> = ({ onCreate }) => {
     Props.value = "";
 
     // submit new hero
-    onCreate(createHeroFromName(name));
+    onCreate(createBattleFromName(name));
   };
 
   return (
     <form className="pb-4">
-      <h2>Create a new hero</h2>
+      <h2>Create a new battle</h2>
       <div className="flex flex-row space-x-2">
         <input
           type="text"

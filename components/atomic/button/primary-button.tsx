@@ -1,17 +1,21 @@
 import { useRouter } from "next/router";
 import React from "react";
 
-interface PrimaryButtonInput {
+interface PrimaryButtonProps {
   href?: string;
   onClick?: () => void;
+  submit?: boolean;
 }
 
-export const PrimaryButton: React.FC<PrimaryButtonInput> = ({
+export const PrimaryButton: React.FC<PrimaryButtonProps> = ({
   href,
   onClick,
   children,
+  submit = false,
 }) => {
   const router = useRouter();
+  const classNames =
+    "bg-slate-500 hover:bg-slate-600 text-white font-bold py-2 px-4 rounded";
 
   const handleClick = (e: React.SyntheticEvent) => {
     e.preventDefault();
@@ -20,16 +24,13 @@ export const PrimaryButton: React.FC<PrimaryButtonInput> = ({
       router.push(href);
     } else if (onClick) {
       onClick();
-    } else {
-      throw new Error("primary button must have a href or a onClick attribute");
     }
   };
 
-  return (
-    <button
-      onClick={handleClick}
-      className="bg-slate-500 hover:bg-slate-600 text-white font-bold py-2 px-4 rounded"
-    >
+  return submit ? (
+    <input type="submit" className={classNames} value={children as string} />
+  ) : (
+    <button onClick={handleClick} className={classNames}>
       {children}
     </button>
   );
