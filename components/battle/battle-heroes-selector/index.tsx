@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 import { Battle, hasCreatedState } from "../../../models/battle";
 import {
-  BattleHero,
-  createBattleHeroFromHero,
-  Hero,
-} from "../../../models/hero";
+  BattleParticipant,
+  createBattleParticipantFromHero,
+} from "../../../models/battle-participant";
+import { Hero } from "../../../models/hero";
 import { AvailableHeroes } from "./available-heroes";
 import { BattleHeroes } from "./battle-heroes";
-import { SelectedHeroes } from "./selected-heroes";
+import { SelectedHeroesForm } from "./selected-heroes-form";
 
 interface BattleHeroesSelectorFormProps {
   battle: Battle;
-  heroes: Hero[];
-  onSubmit: (battleHeroes: BattleHero[]) => void;
+  heroes: BattleParticipant[];
+  onSubmit: (battleHeroes: BattleParticipant[]) => void;
 }
 
 export const BattleHeroesSelector: React.FC<BattleHeroesSelectorFormProps> = ({
@@ -22,10 +22,12 @@ export const BattleHeroesSelector: React.FC<BattleHeroesSelectorFormProps> = ({
 }) => {
   // state
   const battleHeroesUuids = battle.heroes.map((h) => h.uuid);
-  const [availableHeroes, setAvailableHeroes] = useState<Hero[]>(
+  const [availableHeroes, setAvailableHeroes] = useState<BattleParticipant[]>(
     heroes.filter((h) => !battleHeroesUuids.includes(h.uuid))
   );
-  const [battleHeroes, setBattleHeroes] = useState<BattleHero[]>(battle.heroes);
+  const [battleHeroes, setBattleHeroes] = useState<BattleParticipant[]>(
+    battle.heroes
+  );
 
   // handlers
   const handleHeroSelected = (selectedHero: Hero) => {
@@ -38,12 +40,13 @@ export const BattleHeroesSelector: React.FC<BattleHeroesSelectorFormProps> = ({
     // add hero to the battle heroes
     const newBattleHeroes = [
       ...battleHeroes,
-      createBattleHeroFromHero(selectedHero),
+      createBattleParticipantFromHero(selectedHero),
     ].sort((a, b) => a.name.localeCompare(b.name));
+
     setBattleHeroes(newBattleHeroes);
   };
 
-  const handleSubmit = (battleHeroes: BattleHero[]) => {
+  const handleSubmit = (battleHeroes: BattleParticipant[]) => {
     setBattleHeroes(battleHeroes);
     onSubmit(battleHeroes);
   };
@@ -58,7 +61,10 @@ export const BattleHeroesSelector: React.FC<BattleHeroesSelectorFormProps> = ({
             onHeroSelected={handleHeroSelected}
           />
 
-          <SelectedHeroes battleHeroes={battleHeroes} onSubmit={handleSubmit} />
+          <SelectedHeroesForm
+            battleHeroes={battleHeroes}
+            onSubmit={handleSubmit}
+          />
         </div>
       ) : (
         <BattleHeroes battleHeroes={battleHeroes} />

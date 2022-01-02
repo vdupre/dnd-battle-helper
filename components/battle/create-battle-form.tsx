@@ -7,7 +7,8 @@ interface BattleFormProps {
 }
 
 export const CreateBattleForm: React.FC<BattleFormProps> = ({ onCreate }) => {
-  const namePropsRef = useRef<HTMLInputElement>();
+  const namePropsRef =
+    useRef<HTMLInputElement>() as React.MutableRefObject<HTMLInputElement>;
 
   const handleCreateClick = () => {
     const Props = namePropsRef.current as HTMLInputElement;

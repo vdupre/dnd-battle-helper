@@ -1,11 +1,12 @@
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useLocalStorage } from "usehooks-ts";
+import { BattleEnemiesSelector } from "../../components/battle/battle-enemies-selector";
 import { BattleHeader } from "../../components/battle/battle-header";
 import { BattleHeroesSelector } from "../../components/battle/battle-heroes-selector";
 import { Layout } from "../../components/layout";
 import { addHeroesToBattle, Battle } from "../../models/battle";
-import { BattleHero, Hero } from "../../models/hero";
+import { BattleParticipant } from "../../models/battle-participant";
 import { generateBattleHomepageUrl } from "../../utils/routing";
 import { STORAGE_KEYS } from "../../utils/storage";
 
@@ -14,7 +15,10 @@ const Battle: NextPage = () => {
   const { battleUuid } = router.query;
 
   // get available heroes
-  const [heroes] = useLocalStorage<Hero[]>(STORAGE_KEYS.HEROES, []);
+  const [heroes] = useLocalStorage<BattleParticipant[]>(
+    STORAGE_KEYS.HEROES,
+    []
+  );
 
   // get current battle
   const [battles, setBattles] = useLocalStorage<Battle[]>(
@@ -24,7 +28,7 @@ const Battle: NextPage = () => {
   const battle = battles.find((b) => b.uuid === battleUuid);
 
   // handlers
-  const handleHeroesSubmit = (battleHeroes: BattleHero[]) => {
+  const handleHeroesSubmit = (battleHeroes: BattleParticipant[]) => {
     const updatedBattle = addHeroesToBattle(battle as Battle, battleHeroes);
 
     setBattles([
@@ -44,12 +48,19 @@ const Battle: NextPage = () => {
 
   return (
     <Layout>
-      <BattleHeader battle={battle} />
-      <BattleHeroesSelector
-        battle={battle}
-        heroes={heroes}
-        onSubmit={handleHeroesSubmit}
-      />
+      <section>
+        <BattleHeader battle={battle} />
+      </section>
+      <section>
+        <BattleHeroesSelector
+          battle={battle}
+          heroes={heroes}
+          onSubmit={handleHeroesSubmit}
+        />
+      </section>
+      <section>
+        <BattleEnemiesSelector battle={battle} />
+      </section>
     </Layout>
   );
 };

@@ -1,20 +1,22 @@
 import React, { SyntheticEvent, useRef } from "react";
-import { BattleHero } from "../../../models/hero";
+import { BattleParticipant } from "../../../models/battle-participant";
 import { PrimaryButton } from "../../atomic/button/primary-button";
 
 export enum FIELD_NAMES {
   HP = "hp",
   INITIATIVE = "initiative",
 }
-export const generateInputName = (uuid: string, fieldName: FIELD_NAMES) =>
-  `battleHero[${uuid}][${fieldName}]`;
+export const generateBattleParticipantInputName = (
+  uuid: string,
+  fieldName: FIELD_NAMES
+) => `battleParticipant[${uuid}][${fieldName}]`;
 
 interface AvailableHeroesProps {
-  battleHeroes: BattleHero[];
-  onSubmit: (battleHeroes: BattleHero[]) => void;
+  battleHeroes: BattleParticipant[];
+  onSubmit: (battleHeroes: BattleParticipant[]) => void;
 }
 
-export const SelectedHeroes: React.FC<AvailableHeroesProps> = ({
+export const SelectedHeroesForm: React.FC<AvailableHeroesProps> = ({
   battleHeroes,
   onSubmit,
 }) => {
@@ -30,10 +32,13 @@ export const SelectedHeroes: React.FC<AvailableHeroesProps> = ({
     // overrides entites with form data (if valid)
     const newBattleHeroes = battleHeroes.map((battleHero) => {
       const intHP = +(formData.get(
-        generateInputName(battleHero.uuid, FIELD_NAMES.HP)
+        generateBattleParticipantInputName(battleHero.uuid, FIELD_NAMES.HP)
       ) as string);
       const intInitiative = +(formData.get(
-        generateInputName(battleHero.uuid, FIELD_NAMES.INITIATIVE)
+        generateBattleParticipantInputName(
+          battleHero.uuid,
+          FIELD_NAMES.INITIATIVE
+        )
       ) as string);
 
       // security: field format validation (TODO do something more user friendly)
@@ -59,7 +64,7 @@ export const SelectedHeroes: React.FC<AvailableHeroesProps> = ({
       return;
     }
 
-    onSubmit(newBattleHeroes as BattleHero[]);
+    onSubmit(newBattleHeroes as BattleParticipant[]);
   };
 
   return (
@@ -70,7 +75,10 @@ export const SelectedHeroes: React.FC<AvailableHeroesProps> = ({
           <div className="flex flex-row space-x-2 items-center pb-1">
             <div className="grow"></div>
             {["HP", "Initiative"].map((label) => (
-              <div className="flex-none w-1/4 md:w-1/6 text-center font-bold">
+              <div
+                key={`label-${label}`}
+                className="flex-none w-1/4 md:w-1/6 text-center font-bold"
+              >
                 {label}
               </div>
             ))}
@@ -82,9 +90,15 @@ export const SelectedHeroes: React.FC<AvailableHeroesProps> = ({
             >
               <div className="grow">{battlehero.name}</div>
               {Object.values(FIELD_NAMES).map((fieldName) => (
-                <div className="flex-none w-1/4 md:w-1/6">
+                <div
+                  key={`field-${fieldName}`}
+                  className="flex-none w-1/4 md:w-1/6"
+                >
                   <input
-                    name={generateInputName(battlehero.uuid, fieldName)}
+                    name={generateBattleParticipantInputName(
+                      battlehero.uuid,
+                      fieldName
+                    )}
                     type="number"
                     defaultValue={battlehero[fieldName]}
                     className="w-full text-center"

@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { createHeroFromName, Hero } from "../../models/hero";
+import { Hero, createHeroFromName } from "../../models/hero";
 import { PrimaryButton } from "../atomic/button/primary-button";
 
 interface HeroFormProps {
@@ -7,11 +7,12 @@ interface HeroFormProps {
 }
 
 export const CreateHeroForm: React.FC<HeroFormProps> = ({ onCreate }) => {
-  const namePropsRef = useRef<HTMLInputElement>();
+  const inputRef =
+    useRef<HTMLInputElement>() as React.MutableRefObject<HTMLInputElement>;
 
   const handleCreateClick = () => {
-    const Props = namePropsRef.current as HTMLInputElement;
-    const name = Props.value;
+    const input = inputRef.current as HTMLInputElement;
+    const name = input.value;
 
     // security: mandatory field
     if (!name) {
@@ -19,7 +20,7 @@ export const CreateHeroForm: React.FC<HeroFormProps> = ({ onCreate }) => {
     }
 
     // reset field
-    Props.value = "";
+    input.value = "";
 
     // submit new hero
     onCreate(createHeroFromName(name));
@@ -33,7 +34,7 @@ export const CreateHeroForm: React.FC<HeroFormProps> = ({ onCreate }) => {
           type="text"
           className="grow rounded-md"
           placeholder="name"
-          ref={namePropsRef}
+          ref={inputRef}
         />
         <div className="flex-none">
           <PrimaryButton onClick={handleCreateClick}>Create</PrimaryButton>

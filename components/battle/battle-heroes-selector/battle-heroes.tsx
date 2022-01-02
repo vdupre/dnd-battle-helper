@@ -1,8 +1,8 @@
 import React from "react";
-import { BattleHero } from "../../../models/hero";
+import { BattleParticipant } from "../../../models/battle-participant";
 
 interface AvailableHeroesProps {
-  battleHeroes: BattleHero[];
+  battleHeroes: BattleParticipant[];
 }
 
 export const BattleHeroes: React.FC<AvailableHeroesProps> = ({
