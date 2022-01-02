@@ -21,6 +21,9 @@ export const BattleHeroes: React.FC<AvailableHeroesProps> = ({
           <div className="flex-none w-1/4 md:w-1/6">
             {battlehero.initiative} initiative
           </div>
+          <div className="flex-none">
+            {battlehero.isSurprised ? "😮" : "🙂"}
+          </div>
         </div>
       ))}
     </div>

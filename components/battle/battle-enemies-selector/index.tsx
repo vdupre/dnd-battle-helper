@@ -4,7 +4,7 @@ import {
   BattleParticipant,
   createBattleParticipantFromName,
 } from "../../../models/battle-participant";
-import { BattleParticipantForm } from "../battle-participant-form";
+import { BattleParticipantForm } from "../common/battle-participant-form";
 import { BattleEnemies } from "./battle-enemies";
 import { CreateEnemyForm } from "./create-enemy-form";
 

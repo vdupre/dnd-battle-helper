@@ -6,6 +6,7 @@ export type BattleParticipant = {
   name: string;
   hp: number;
   initiative: number;
+  isSurprised: boolean;
 };
 
 export const createBattleParticipantFromHero = (
@@ -15,6 +16,7 @@ export const createBattleParticipantFromHero = (
   name: hero.name,
   hp: 0,
   initiative: 0,
+  isSurprised: false,
 });
 
 export const createBattleParticipantFromName = (
@@ -24,4 +26,17 @@ export const createBattleParticipantFromName = (
   name,
   hp: 0,
   initiative: 0,
+  isSurprised: false,
+});
+
+export const setupBattleParticipantParams = (
+  battleParticipant: BattleParticipant,
+  hp: number,
+  initiative: number,
+  isSurprised: boolean
+): BattleParticipant => ({
+  ...battleParticipant,
+  hp,
+  initiative,
+  isSurprised,
 });

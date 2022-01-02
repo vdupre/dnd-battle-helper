@@ -1,10 +1,14 @@
 import React, { SyntheticEvent, useRef } from "react";
-import { BattleParticipant } from "../../models/battle-participant";
-import { PrimaryButton } from "../atomic/button/primary-button";
+import {
+  BattleParticipant,
+  setupBattleParticipantParams,
+} from "../../../models/battle-participant";
+import { PrimaryButton } from "../../atomic/button/primary-button";
 
 export enum FIELD_NAMES {
   HP = "hp",
   INITIATIVE = "initiative",
+  IS_SURPRISED = "isSurprised",
 }
 export const generateBattleParticipantInputName = (
   uuid: string,
@@ -44,6 +48,12 @@ export const BattleParticipantForm: React.FC<BattleParticipantFormProps> = ({
             FIELD_NAMES.INITIATIVE
           )
         ) as string);
+        const boolIsSurprised = !!formData.get(
+          generateBattleParticipantInputName(
+            battleParticipant.uuid,
+            FIELD_NAMES.IS_SURPRISED
+          )
+        );
 
         // security: field format validation (TODO do something more user friendly)
         if (
@@ -55,11 +65,12 @@ export const BattleParticipantForm: React.FC<BattleParticipantFormProps> = ({
           return null;
         }
 
-        return {
-          ...battleParticipant,
-          hp: intHP,
-          initiative: intInitiative,
-        };
+        return setupBattleParticipantParams(
+          battleParticipant,
+          intHP,
+          intInitiative,
+          boolIsSurprised
+        );
       }
     );
 
@@ -77,7 +88,7 @@ export const BattleParticipantForm: React.FC<BattleParticipantFormProps> = ({
       {/* headers */}
       <div className="flex flex-row space-x-2 items-center pb-1">
         <div className="grow"></div>
-        {Object.values(FIELD_NAMES).map((label) => (
+        {[FIELD_NAMES.HP, FIELD_NAMES.INITIATIVE].map((label) => (
           <div
             key={`label-${label}`}
             className="flex-none w-1/4 md:w-1/6 text-center font-bold"
@@ -85,6 +96,7 @@ export const BattleParticipantForm: React.FC<BattleParticipantFormProps> = ({
             {label}
           </div>
         ))}
+        <div className="flex-none text-center font-bold">😮</div>
       </div>
 
       {/* fields */}
@@ -94,7 +106,7 @@ export const BattleParticipantForm: React.FC<BattleParticipantFormProps> = ({
           className="flex flex-row space-x-2 items-center pb-2"
         >
           <div className="grow">{battleParticipant.name}</div>
-          {Object.values(FIELD_NAMES).map((fieldName) => (
+          {[FIELD_NAMES.HP, FIELD_NAMES.INITIATIVE].map((fieldName) => (
             <div
               key={`field-${fieldName}`}
               className="flex-none w-1/4 md:w-1/6"
@@ -105,7 +117,7 @@ export const BattleParticipantForm: React.FC<BattleParticipantFormProps> = ({
                   fieldName
                 )}
                 type="number"
-                defaultValue={battleParticipant[fieldName]}
+                defaultValue={battleParticipant[fieldName] as number}
                 className="w-full text-center"
                 required={true}
                 onClick={(event: SyntheticEvent<HTMLInputElement>) =>
@@ -114,6 +126,16 @@ export const BattleParticipantForm: React.FC<BattleParticipantFormProps> = ({
               />
             </div>
           ))}
+          <div className="flex-none text-center">
+            <input
+              name={generateBattleParticipantInputName(
+                battleParticipant.uuid,
+                FIELD_NAMES.IS_SURPRISED
+              )}
+              type="checkbox"
+              defaultChecked={battleParticipant.isSurprised}
+            />
+          </div>
         </div>
       ))}
       <div className="text-right">

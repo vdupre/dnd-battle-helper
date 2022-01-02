@@ -11,11 +11,11 @@ Small mobile app to help you follow what is happening during your Dungeons & Dra
 - Feature: Create a team of heroes
 - Feature: Create a battle with heroes and ennemies
 - Feature: Define HP & initiative for each ones
+- Feature: Display enemies HP (hidden by default)
+- Feature: Start the battle
 
 ### To do
 
-- Feature: Start the battle
-- Feature: Display enemies HP (hidden by default)
 - Feature: Rounds & turns management: who's next to act
 - Feature: Take damage or receive healing
 - Feature: Condition management: charmed, unconscious..

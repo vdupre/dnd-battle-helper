@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useLocalStorage } from "usehooks-ts";
+import { PrimaryButton } from "../../components/atomic/button/primary-button";
 import { BattleEnemiesSelector } from "../../components/battle/battle-enemies-selector";
 import { BattleHeader } from "../../components/battle/battle-header";
 import { BattleHeroesSelector } from "../../components/battle/battle-heroes-selector";
@@ -13,10 +14,12 @@ import {
   hasAtLeastEnemiesSelectedState,
   hasAtLeastHeroesSelectedState,
   startBattle,
-  SURPRISE_ROUND,
 } from "../../models/battle";
 import { BattleParticipant } from "../../models/battle-participant";
-import { generateBattleHomepageUrl } from "../../utils/routing";
+import {
+  generateBattleFightUrl,
+  generateBattleHomepageUrl,
+} from "../../utils/routing";
 import { STORAGE_KEYS } from "../../utils/storage";
 
 const Battle: NextPage = () => {
@@ -52,9 +55,11 @@ const Battle: NextPage = () => {
     updateBattles(updatedBattle, battles);
   };
 
-  const handleBattleStarted = (surpriseRound: SURPRISE_ROUND) => {
-    const updatedBattle = startBattle(battle as Battle, surpriseRound);
+  const handleBattleStarted = () => {
+    const updatedBattle = startBattle(battle as Battle);
     updateBattles(updatedBattle, battles);
+
+    router.push(generateBattleFightUrl(updatedBattle));
   };
 
   // security: if not found, redirect to battle homepage
@@ -89,10 +94,7 @@ const Battle: NextPage = () => {
 
       {hasAtLeastEnemiesSelectedState(battle) && (
         <section>
-          <BattleStarter
-            battle={battle}
-            onBattleStarted={handleBattleStarted}
-          />
+          <BattleStarter battle={battle} onStart={handleBattleStarted} />
         </section>
       )}
     </Layout>

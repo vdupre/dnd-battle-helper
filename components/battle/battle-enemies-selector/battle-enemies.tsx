@@ -11,17 +11,20 @@ export const BattleEnemies: React.FC<AvailableHeroesProps> = ({
   return (
     <div>
       <h2>Enemies</h2>
-      {battleEnemies.map((battleEnemi) => (
+      {battleEnemies.map((battleEnemy) => (
         <div
-          key={`battle-hero-${battleEnemi.uuid}`}
+          key={`battle-hero-${battleEnemy.uuid}`}
           className="flex flex-row space-x-2 items-center pb-2"
         >
-          <div className="grow">{battleEnemi.name}</div>
+          <div className="grow">{battleEnemy.name}</div>
           <div className="flex-none w-1/4 md:w-1/6 blur-sm hover:blur-none">
-            {battleEnemi.hp} hp
+            {battleEnemy.hp} hp
           </div>
           <div className="flex-none w-1/4 md:w-1/6">
-            {battleEnemi.initiative} initiative
+            {battleEnemy.initiative} initiative
+          </div>
+          <div className="flex-none">
+            {battleEnemy.isSurprised ? "😮" : "🙂"}
           </div>
         </div>
       ))}
