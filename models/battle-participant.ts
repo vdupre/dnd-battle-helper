@@ -16,3 +16,12 @@ export const createBattleParticipantFromHero = (
   hp: 0,
   initiative: 0,
 });
+
+export const createBattleParticipantFromName = (
+  name: string
+): BattleParticipant => ({
+  uuid: uuidV4(),
+  name,
+  hp: 0,
+  initiative: 0,
+});
