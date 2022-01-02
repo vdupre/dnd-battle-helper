@@ -1,5 +1,5 @@
 import React from "react";
-import { Battle, STATES } from "../../models/battle";
+import { Battle, hasStartedState, STATES } from "../../models/battle";
 
 interface BattleHeaderProps {
   battle: Battle;
@@ -22,8 +22,11 @@ export const BattleHeader: React.FC<BattleHeaderProps> = ({ battle }) => {
   return (
     <div>
       <h1>Battle: {battle.name}</h1>
-      <p className="italic mb-2 px-2 py-1 text-sm bg-gray-300 rounded-md inline-block">
+      <p className="mb-2 text-sm ">
         {getLabelFromState(battle.state)}
+        {hasStartedState(battle) && (
+          <span>{` - round ${battle.round}, turn ${battle.turn}`}</span>
+        )}
       </p>
     </div>
   );

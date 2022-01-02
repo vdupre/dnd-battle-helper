@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { PrimaryButton } from "../../atomic/button/primary-button";
+import { PrimaryButton } from "../../../atomic/button/primary-button";
 
 interface CreateEnemyFormProps {
   onCreate: (name: string) => void;

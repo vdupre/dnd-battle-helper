@@ -2,8 +2,8 @@ import React, { SyntheticEvent, useRef } from "react";
 import {
   BattleParticipant,
   setupBattleParticipantParams,
-} from "../../../models/battle-participant";
-import { PrimaryButton } from "../../atomic/button/primary-button";
+} from "../../../../models/battle-participant";
+import { PrimaryButton } from "../../../atomic/button/primary-button";
 
 export enum FIELD_NAMES {
   HP = "hp",

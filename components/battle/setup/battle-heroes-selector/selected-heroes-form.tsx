@@ -1,5 +1,5 @@
 import React from "react";
-import { BattleParticipant } from "../../../models/battle-participant";
+import { BattleParticipant } from "../../../../models/battle-participant";
 import { BattleParticipantForm } from "../common/battle-participant-form";
 
 interface SelectedHeroesFormProps {

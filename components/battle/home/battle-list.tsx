@@ -1,7 +1,7 @@
 import React from "react";
-import { Battle } from "../../models/battle";
-import { generateBattleUrl } from "../../utils/routing";
-import { EntityCard } from "../atomic/entity-card";
+import { Battle } from "../../../models/battle";
+import { generateBattleUrl } from "../../../utils/routing";
+import { EntityCard } from "../../atomic/entity-card";
 
 interface BattleListProps {
   battles: Battle[];

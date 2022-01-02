@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import { useLocalStorage } from "usehooks-ts";
-import { BattleList } from "../../components/battle/battle-list";
-import { CreateBattleForm } from "../../components/battle/create-battle-form";
+import { BattleList } from "../../components/battle/home/battle-list";
+import { CreateBattleForm } from "../../components/battle/home/create-battle-form";
 import { Layout } from "../../components/layout";
 import { Battle } from "../../models/battle";
 import { STORAGE_KEYS } from "../../utils/storage";

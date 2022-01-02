@@ -1,5 +1,5 @@
 import React from "react";
-import { BattleParticipant } from "../../../models/battle-participant";
+import { BattleParticipant } from "../../../../models/battle-participant";
 
 interface AvailableHeroesProps {
   battleHeroes: BattleParticipant[];

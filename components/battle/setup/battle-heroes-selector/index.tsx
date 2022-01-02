@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { Battle, hasCreatedState } from "../../../models/battle";
+import { Battle, hasCreatedState } from "../../../../models/battle";
 import {
   BattleParticipant,
   createBattleParticipantFromHero,
-} from "../../../models/battle-participant";
-import { Hero } from "../../../models/hero";
+} from "../../../../models/battle-participant";
+import { Hero } from "../../../../models/hero";
 import { AvailableHeroes } from "./available-heroes";
 import { BattleHeroes } from "./battle-heroes";
 import { SelectedHeroesForm } from "./selected-heroes-form";

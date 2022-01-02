@@ -1,7 +1,7 @@
 import React from "react";
-import { Battle, hasEnemiesSelectedState } from "../../models/battle";
-import { generateBattleFightUrl } from "../../utils/routing";
-import { PrimaryButton } from "../atomic/button/primary-button";
+import { Battle, hasEnemiesSelectedState } from "../../../models/battle";
+import { generateBattleFightUrl } from "../../../utils/routing";
+import { PrimaryButton } from "../../atomic/button/primary-button";
 
 interface BattleStarterProps {
   battle: Battle;

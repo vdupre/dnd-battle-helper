@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useLocalStorage } from "usehooks-ts";
+import { BattleHeader } from "../../../components/battle/battle-header";
 import { Layout } from "../../../components/layout";
 import { Battle } from "../../../models/battle";
 import { generateBattleHomepageUrl } from "../../../utils/routing";
@@ -23,7 +24,11 @@ const Battle: NextPage = () => {
     return null;
   }
 
-  return <Layout>To be continued</Layout>;
+  return (
+    <Layout>
+      <BattleHeader battle={battle} />
+    </Layout>
+  );
 };
 
 export default Battle;

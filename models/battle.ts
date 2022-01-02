@@ -14,6 +14,8 @@ export interface Battle {
   state: STATES;
   heroes: BattleParticipant[];
   enemies: BattleParticipant[];
+  round: number;
+  turn: number;
 }
 
 // battle management
@@ -24,6 +26,8 @@ export const createBattleFromName = (name: string): Battle => ({
   state: STATES.CREATED,
   heroes: [],
   enemies: [],
+  round: 1,
+  turn: 1,
 });
 
 export const addHeroesToBattle = (
@@ -65,3 +69,6 @@ export const hasEnemiesSelectedState = (battle: Battle) =>
 
 export const hasAtLeastEnemiesSelectedState = (battle: Battle) =>
   battle.state >= STATES.ENEMIES_SELECTED;
+
+export const hasStartedState = (battle: Battle) =>
+  battle.state === STATES.STARTED;

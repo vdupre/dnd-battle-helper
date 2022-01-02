@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
-import { Battle, createBattleFromName } from "../../models/battle";
-import { PrimaryButton } from "../atomic/button/primary-button";
+import { Battle, createBattleFromName } from "../../../models/battle";
+import { PrimaryButton } from "../../atomic/button/primary-button";
 
 interface BattleFormProps {
   onCreate: (newBattle: Battle) => void;

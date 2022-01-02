@@ -1,7 +1,7 @@
 import React from "react";
-import { Hero } from "../../../models/hero";
-import { generateHeroesUrl } from "../../../utils/routing";
-import { PrimaryButton } from "../../atomic/button/primary-button";
+import { Hero } from "../../../../models/hero";
+import { generateHeroesUrl } from "../../../../utils/routing";
+import { PrimaryButton } from "../../../atomic/button/primary-button";
 
 interface AvailableHeroesProps {
   heroes: Hero[];
