@@ -1,17 +1,21 @@
 import { v4 as uuidV4 } from "uuid";
-import { BattleHero } from "./hero";
+import { BattleParticipant } from "./battle-participant";
 
-enum STATES {
-  CREATED = "created",
-  HEROES_SELECTED = "heroes selected",
+export enum STATES {
+  CREATED = 1,
+  HEROES_SELECTED = 2,
+  ENEMIES_SELECTED = 3,
+  STARTED = 4,
 }
 
 export interface Battle {
   uuid: string;
   name: string;
   state: STATES;
-  heroes: BattleHero[];
+  heroes: BattleParticipant[];
 }
+
+// battle management
 
 export const createBattleFromName = (name: string): Battle => ({
   uuid: uuidV4(),
@@ -22,14 +26,20 @@ export const createBattleFromName = (name: string): Battle => ({
 
 export const addHeroesToBattle = (
   battle: Battle,
-  battleHeroes: BattleHero[]
+  heroes: BattleParticipant[]
 ): Battle => ({
   ...battle,
   state: STATES.HEROES_SELECTED,
-  heroes: battleHeroes,
+  heroes,
 });
+
+// state management
 
 export const hasCreatedState = (battle: Battle) =>
   battle.state === STATES.CREATED;
-export const hasHeroesSelectedState = (battle: Battle) =>
-  battle.state === STATES.CREATED;
+
+export const hasAtLeastHeroesSelectedState = (battle: Battle) =>
+  battle.state >= STATES.HEROES_SELECTED;
+
+export const hasAtLeastEnemiesSelectedState = (battle: Battle) =>
+  battle.state >= STATES.ENEMIES_SELECTED;
