@@ -1,7 +1,6 @@
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useLocalStorage } from "usehooks-ts";
-import { PrimaryButton } from "../../components/atomic/button/primary-button";
 import { BattleEnemiesSelector } from "../../components/battle/battle-enemies-selector";
 import { BattleHeader } from "../../components/battle/battle-header";
 import { BattleHeroesSelector } from "../../components/battle/battle-heroes-selector";

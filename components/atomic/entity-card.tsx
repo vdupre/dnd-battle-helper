@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React from "react";
-import { DangerButton } from "../button/danger-button";
+import { DangerButton } from "./button/danger-button";
 
 interface EntityCardProps<T> {
   entity: T;
@@ -9,6 +9,7 @@ interface EntityCardProps<T> {
   href?: string;
 }
 
+// eslint-disable-next-line
 export const EntityCard: React.FC<EntityCardProps<any>> = ({
   entity,
   onDelete,
@@ -16,6 +17,7 @@ export const EntityCard: React.FC<EntityCardProps<any>> = ({
 }) => {
   const router = useRouter();
 
+  // handlers
   const handleCardClick = () => {
     if (href) {
       router.push(href);
