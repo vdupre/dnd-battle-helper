@@ -18,7 +18,7 @@ export const Layout: React.FC = ({ children }) => {
         </h1>
       </header>
 
-      <main className="container mx-auto py-4 px-4">{children}</main>
+      <main className="container mx-auto p-4">{children}</main>
     </div>
   );
 };

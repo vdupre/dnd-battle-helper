@@ -72,3 +72,17 @@ export const hasAtLeastEnemiesSelectedState = (battle: Battle) =>
 
 export const hasStartedState = (battle: Battle) =>
   battle.state === STATES.STARTED;
+
+// field management
+
+export const getParticipantsSortedByInitiative = (battle: Battle) => {
+  return (
+    [...battle.heroes, ...battle.enemies]
+      // remove dead participants
+      .filter((participant) => participant.hp > 0)
+      // if first round, remove surprised participants
+      .filter((participant) => battle.round > 1 || !participant.isSurprised)
+      // order by initiative (advantage for heroes in case of same initiative)
+      .sort((p1, p2) => (p1.initiative > p2.initiative ? -1 : 1))
+  );
+};

@@ -1,8 +1,10 @@
 import React from "react";
-import { Battle, hasStartedState, STATES } from "../../models/battle";
+import { Battle, hasStartedState, STATES } from "../../../models/battle";
+import { RoundOrder } from "./round-order";
 
 interface BattleHeaderProps {
   battle: Battle;
+  displayRoundOrder?: boolean;
 }
 
 const getLabelFromState = (state: STATES) => {
@@ -18,16 +20,24 @@ const getLabelFromState = (state: STATES) => {
   }
 };
 
-export const BattleHeader: React.FC<BattleHeaderProps> = ({ battle }) => {
+export const BattleHeader: React.FC<BattleHeaderProps> = ({
+  battle,
+  displayRoundOrder = false,
+}) => {
   return (
     <div>
       <h1>Battle: {battle.name}</h1>
-      <p className="mb-2 text-sm ">
+      <p className="text-sm mb-2">
         {getLabelFromState(battle.state)}
         {hasStartedState(battle) && (
           <span>{` - round ${battle.round}, turn ${battle.turn}`}</span>
         )}
       </p>
+      {displayRoundOrder && hasStartedState(battle) && (
+        <div className="bg-gray-200 px-4 py-1 -mx-4">
+          <RoundOrder battle={battle} />
+        </div>
+      )}
     </div>
   );
 };

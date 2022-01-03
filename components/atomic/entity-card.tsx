@@ -32,7 +32,7 @@ export const EntityCard: React.FC<EntityCardProps<any>> = ({
       <div className="flex flex-row space-x-2 items-center">
         <div className="grow">{entity.name}</div>
         <div className="flex-none w-10">
-          <DangerButton onClick={() => onDelete(entity)} withIcon={true}>
+          <DangerButton onClick={() => onDelete(entity)} withIcon>
             <Image src="/trash-white.svg" width={24} height={24} alt="delete" />
           </DangerButton>
         </div>

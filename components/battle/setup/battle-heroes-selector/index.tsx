@@ -54,7 +54,7 @@ export const BattleHeroesSelector: React.FC<BattleHeroesSelectorFormProps> = ({
   return (
     <>
       {hasCreatedState(battle) ? (
-        <div className="bg-gray-200 p-4">
+        <div className="bg-gray-200 p-4 -mx-4">
           <AvailableHeroes
             heroes={heroes}
             availableHeroes={availableHeroes}

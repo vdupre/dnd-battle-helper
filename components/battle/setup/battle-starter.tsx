@@ -13,7 +13,7 @@ export const BattleStarter: React.FC<BattleStarterProps> = ({
   onStart,
 }) => {
   return (
-    <div className="bg-gray-200 p-4 text-center">
+    <div className="bg-gray-200 p-4 -mx-4 text-center">
       {hasEnemiesSelectedState(battle) ? (
         <PrimaryButton onClick={onStart}>Start the battle</PrimaryButton>
       ) : (

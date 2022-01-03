@@ -119,7 +119,7 @@ export const BattleParticipantForm: React.FC<BattleParticipantFormProps> = ({
                 type="number"
                 defaultValue={battleParticipant[fieldName] as number}
                 className="w-full text-center"
-                required={true}
+                required
                 onClick={(event: SyntheticEvent<HTMLInputElement>) =>
                   event.currentTarget.select()
                 }
@@ -139,7 +139,7 @@ export const BattleParticipantForm: React.FC<BattleParticipantFormProps> = ({
         </div>
       ))}
       <div className="text-right">
-        <PrimaryButton submit={true}>Validate</PrimaryButton>
+        <PrimaryButton submit>Validate</PrimaryButton>
       </div>
     </form>
   );

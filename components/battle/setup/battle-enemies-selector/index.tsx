@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Battle, hasHeroesSelectedState } from "../../../../models/battle";
 import {
   BattleParticipant,
-  createBattleParticipantFromName,
+  createBattleParticipantFromEnemy,
 } from "../../../../models/battle-participant";
 import { BattleParticipantForm } from "../common/battle-participant-form";
 import { BattleEnemies } from "./battle-enemies";
@@ -24,7 +24,10 @@ export const BattleEnemiesSelector: React.FC<BattleEnemiesSelectorProps> = ({
 
   // handler
   const handleEnemyCreated = (name: string) => {
-    setBattleEnemies([...battleEnemies, createBattleParticipantFromName(name)]);
+    setBattleEnemies([
+      ...battleEnemies,
+      createBattleParticipantFromEnemy(name),
+    ]);
   };
 
   const handleSubmit = (battleEnemies: BattleParticipant[]) => {
@@ -33,7 +36,7 @@ export const BattleEnemiesSelector: React.FC<BattleEnemiesSelectorProps> = ({
   };
 
   return hasHeroesSelectedState(battle) ? (
-    <div className="bg-gray-200 p-4">
+    <div className="bg-gray-200 p-4 -mx-4">
       <CreateEnemyForm onCreate={handleEnemyCreated} />
       {battleEnemies.length > 0 && (
         <BattleParticipantForm

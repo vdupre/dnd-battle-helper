@@ -1,7 +1,13 @@
 import { v4 as uuidV4 } from "uuid";
 import { Hero } from "./hero";
 
+enum PARTICIPANT_TYPE {
+  HERO = "hero",
+  ENEMY = "enemy",
+}
+
 export type BattleParticipant = {
+  type: PARTICIPANT_TYPE;
   uuid: string;
   name: string;
   hp: number;
@@ -12,6 +18,7 @@ export type BattleParticipant = {
 export const createBattleParticipantFromHero = (
   hero: Hero
 ): BattleParticipant => ({
+  type: PARTICIPANT_TYPE.HERO,
   uuid: hero.uuid,
   name: hero.name,
   hp: 0,
@@ -19,9 +26,10 @@ export const createBattleParticipantFromHero = (
   isSurprised: false,
 });
 
-export const createBattleParticipantFromName = (
+export const createBattleParticipantFromEnemy = (
   name: string
 ): BattleParticipant => ({
+  type: PARTICIPANT_TYPE.ENEMY,
   uuid: uuidV4(),
   name,
   hp: 0,
