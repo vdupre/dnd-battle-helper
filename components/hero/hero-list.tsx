@@ -16,7 +16,11 @@ export const HeroList: React.FC<HeroListProps> = ({ heroes, onDelete }) => {
         <ul className="list-none">
           {heroes.map((hero: Hero) => (
             <li key={`hero-${hero.uuid}`} className="pb-2">
-              <EntityCard entity={hero} onDelete={onDelete} />
+              <EntityCard
+                entity={hero}
+                label={`${hero.name} - ${hero.maxHp} hp`}
+                onDelete={onDelete}
+              />
             </li>
           ))}
         </ul>

@@ -10,6 +10,7 @@ export type BattleParticipant = {
   type: PARTICIPANT_TYPE;
   uuid: string;
   name: string;
+  maxHp: number;
   hp: number;
   initiative: number;
   isSurprised: boolean;
@@ -21,7 +22,8 @@ export const createBattleParticipantFromHero = (
   type: PARTICIPANT_TYPE.HERO,
   uuid: hero.uuid,
   name: hero.name,
-  hp: 0,
+  maxHp: hero.maxHp,
+  hp: hero.maxHp,
   initiative: 0,
   isSurprised: false,
 });
@@ -32,6 +34,7 @@ export const createBattleParticipantFromEnemy = (
   type: PARTICIPANT_TYPE.ENEMY,
   uuid: uuidV4(),
   name,
+  maxHp: 0,
   hp: 0,
   initiative: 0,
   isSurprised: false,
@@ -44,6 +47,7 @@ export const setupBattleParticipantParams = (
   isSurprised: boolean
 ): BattleParticipant => ({
   ...battleParticipant,
+  maxHp: battleParticipant.maxHp > 0 ? battleParticipant.maxHp : hp,
   hp,
   initiative,
   isSurprised,

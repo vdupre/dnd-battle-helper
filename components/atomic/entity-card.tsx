@@ -5,6 +5,7 @@ import { DangerButton } from "./button/danger-button";
 
 interface EntityCardProps<T> {
   entity: T;
+  label?: string;
   onDelete: (entity: T) => void;
   href?: string;
 }
@@ -12,6 +13,7 @@ interface EntityCardProps<T> {
 // eslint-disable-next-line
 export const EntityCard: React.FC<EntityCardProps<any>> = ({
   entity,
+  label,
   onDelete,
   href,
 }) => {
@@ -30,7 +32,7 @@ export const EntityCard: React.FC<EntityCardProps<any>> = ({
       className="rounded p-4 bg-gray-300 border border-cyan-50"
     >
       <div className="flex flex-row space-x-2 items-center">
-        <div className="grow">{entity.name}</div>
+        <div className="grow">{label ? label : entity.name}</div>
         <div className="flex-none w-10">
           <DangerButton onClick={() => onDelete(entity)} withIcon>
             <Image src="/trash-white.svg" width={24} height={24} alt="delete" />
