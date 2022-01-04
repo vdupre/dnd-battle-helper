@@ -91,7 +91,7 @@ export const BattleParticipantForm: React.FC<BattleParticipantFormProps> = ({
         {[FIELD_NAMES.HP, FIELD_NAMES.INITIATIVE].map((label) => (
           <div
             key={`label-${label}`}
-            className="flex-none w-1/4 md:w-1/6 text-center font-bold"
+            className="flex-none w-1/4 md:w-1/6 text-center"
           >
             {label}
           </div>

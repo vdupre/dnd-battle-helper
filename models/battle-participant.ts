@@ -6,6 +6,23 @@ enum PARTICIPANT_TYPE {
   ENEMY = "enemy",
 }
 
+export enum CONDITIONS {
+  PRONE = "prone",
+  GRAPPLED = "grappled",
+  DEAFENED = "deafened",
+  BLINDED = "blinded",
+  CHARMED = "charmed",
+  FRIGHTENED = "frightened",
+  POISONED = "poisoned",
+  RESTRAINED = "restrained",
+  STUNNED = "stunned",
+  INCAPACITED = "incapacited",
+  UNCONSCIOUS = "unconscious",
+  INVISIBLE = "invisible",
+  PARALYZED = "paralyzed",
+  PETRIFIED = "petrified",
+}
+
 export type BattleParticipant = {
   type: PARTICIPANT_TYPE;
   uuid: string;
@@ -14,6 +31,7 @@ export type BattleParticipant = {
   hp: number;
   initiative: number;
   isSurprised: boolean;
+  conditions: CONDITIONS[];
 };
 
 export const createBattleParticipantFromHero = (
@@ -26,6 +44,7 @@ export const createBattleParticipantFromHero = (
   hp: hero.maxHp,
   initiative: 0,
   isSurprised: false,
+  conditions: [],
 });
 
 export const createBattleParticipantFromEnemy = (
@@ -38,6 +57,7 @@ export const createBattleParticipantFromEnemy = (
   hp: 0,
   initiative: 0,
   isSurprised: false,
+  conditions: [],
 });
 
 export const setupBattleParticipantParams = (
