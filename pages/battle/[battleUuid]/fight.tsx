@@ -4,6 +4,8 @@ import { useLocalStorage } from "usehooks-ts";
 import { BattleHeader } from "../../../components/battle/battle-header";
 import { RoundOrder } from "../../../components/battle/battle-header/round-order";
 import { BattleParticipantForm } from "../../../components/battle/fight/battle-participant-form";
+import { CurrentParticipant } from "../../../components/battle/fight/current-participant";
+import { NextParticipants } from "../../../components/battle/fight/next-participants";
 import { Layout } from "../../../components/layout";
 import {
   Battle,
@@ -31,6 +33,7 @@ const Battle: NextPage = () => {
 
   const sortedBattleParticipants = getParticipantsSortedByInitiative(battle);
   const curentBattleParticipant = sortedBattleParticipants[battle.turn - 1];
+  const nextBattleParticipants = sortedBattleParticipants.splice(1);
 
   return (
     <Layout>
@@ -38,7 +41,10 @@ const Battle: NextPage = () => {
         <BattleHeader displayRoundOrder battle={battle} />
       </section>
       <section>
-        <BattleParticipantForm battleParticipant={curentBattleParticipant} />
+        <CurrentParticipant battleParticipant={curentBattleParticipant} />
+      </section>
+      <section>
+        <NextParticipants battleParticipants={nextBattleParticipants} />
       </section>
     </Layout>
   );

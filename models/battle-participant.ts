@@ -32,6 +32,7 @@ export type BattleParticipant = {
   initiative: number;
   isSurprised: boolean;
   conditions: CONDITIONS[];
+  isMaintainingConcentration: boolean;
 };
 
 export const createBattleParticipantFromHero = (
@@ -45,6 +46,7 @@ export const createBattleParticipantFromHero = (
   initiative: 0,
   isSurprised: false,
   conditions: [],
+  isMaintainingConcentration: false,
 });
 
 export const createBattleParticipantFromEnemy = (
@@ -58,6 +60,7 @@ export const createBattleParticipantFromEnemy = (
   initiative: 0,
   isSurprised: false,
   conditions: [],
+  isMaintainingConcentration: false,
 });
 
 export const setupBattleParticipantParams = (
