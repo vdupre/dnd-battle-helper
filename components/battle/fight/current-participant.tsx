@@ -24,7 +24,7 @@ export const CurrentParticipant: React.FC<CurrentParticipantProps> = ({
   return (
     <div>
       <div className="flex flex-row justify-between items-center mb-2">
-        <h2>Participant turn</h2>
+        <h2>Turn participant</h2>
         <div className="px-2">
           <PrimaryButton onClick={handleEndTurnClicked}>End turn</PrimaryButton>
         </div>
