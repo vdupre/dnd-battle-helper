@@ -53,6 +53,20 @@ export const startBattle = (battle: Battle): Battle => ({
   state: STATES.STARTED,
 });
 
+export const endBattleTurn = (battle: Battle): Battle => {
+  const turnCount = battle.heroes.length + battle.enemies.length;
+  const currentTurn = battle.turn;
+  const currentRound = battle.round;
+
+  const shouldBeNextRound = currentTurn + 1 > turnCount;
+
+  return {
+    ...battle,
+    turn: shouldBeNextRound ? 1 : currentTurn + 1,
+    round: shouldBeNextRound ? currentRound + 1 : currentRound,
+  };
+};
+
 // state management
 
 export const hasCreatedState = (battle: Battle) =>

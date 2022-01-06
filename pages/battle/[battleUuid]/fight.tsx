@@ -19,7 +19,10 @@ const Battle: NextPage = () => {
   const { battleUuid } = router.query;
 
   // get current battle & current participant
-  const [battles] = useLocalStorage<Battle[]>(STORAGE_KEYS.BATTLES, []);
+  const [battles, setBattles] = useLocalStorage<Battle[]>(
+    STORAGE_KEYS.BATTLES,
+    []
+  );
   const battle = battles.find((b) => b.uuid === battleUuid);
 
   // security: if not found, redirect to battle homepage
@@ -35,13 +38,25 @@ const Battle: NextPage = () => {
   const curentBattleParticipant = sortedBattleParticipants[battle.turn - 1];
   const nextBattleParticipants = sortedBattleParticipants.splice(1);
 
+  // handlers
+  const handleTurnEnded = (updatedBattle: Battle) => {
+    setBattles([
+      updatedBattle,
+      ...battles.filter((b) => b.uuid !== updatedBattle.uuid),
+    ]);
+  };
+
   return (
     <Layout>
       <section>
         <BattleHeader displayRoundOrder battle={battle} />
       </section>
       <section>
-        <CurrentParticipant battleParticipant={curentBattleParticipant} />
+        <CurrentParticipant
+          battle={battle}
+          battleParticipant={curentBattleParticipant}
+          onTurnEnded={handleTurnEnded}
+        />
       </section>
       <section>
         <NextParticipants battleParticipants={nextBattleParticipants} />
