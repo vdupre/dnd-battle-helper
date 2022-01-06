@@ -54,7 +54,7 @@ export const startBattle = (battle: Battle): Battle => ({
 });
 
 export const endBattleTurn = (battle: Battle): Battle => {
-  const turnCount = battle.heroes.length + battle.enemies.length;
+  const turnCount = getParticipantCount(battle);
   const currentTurn = battle.turn;
   const currentRound = battle.round;
 
@@ -100,3 +100,6 @@ export const getParticipantsSortedByInitiative = (battle: Battle) => {
       .sort((p1, p2) => (p1.initiative > p2.initiative ? -1 : 1))
   );
 };
+
+export const getParticipantCount = (battle: Battle): number =>
+  battle.heroes.length + battle.enemies.length;

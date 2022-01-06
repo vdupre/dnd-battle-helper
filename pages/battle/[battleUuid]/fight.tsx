@@ -9,6 +9,7 @@ import { NextParticipants } from "../../../components/battle/fight/next-particip
 import { Layout } from "../../../components/layout";
 import {
   Battle,
+  getParticipantCount,
   getParticipantsSortedByInitiative,
 } from "../../../models/battle";
 import { generateBattleHomepageUrl } from "../../../utils/routing";
@@ -34,9 +35,20 @@ const Battle: NextPage = () => {
     return null;
   }
 
-  const sortedBattleParticipants = getParticipantsSortedByInitiative(battle);
-  const curentBattleParticipant = sortedBattleParticipants[battle.turn - 1];
-  const nextBattleParticipants = sortedBattleParticipants.splice(1);
+  const sortedParticipants = getParticipantsSortedByInitiative(battle);
+  const currentParticipant = sortedParticipants[battle.turn - 1];
+
+  const nextParticipants = [];
+  for (let i = battle.turn; i < getParticipantCount(battle); i++) {
+    nextParticipants.push(sortedParticipants[i]);
+  }
+  for (let i = 0; i < battle.turn - 1; i++) {
+    nextParticipants.push(sortedParticipants[i]);
+  }
+
+  // const nextParticipants = sortedParticipants.filter(
+  //   (b) => b.uuid !== currentParticipant.uuid
+  // );
 
   // handlers
   const handleTurnEnded = (updatedBattle: Battle) => {
@@ -54,12 +66,12 @@ const Battle: NextPage = () => {
       <section>
         <CurrentParticipant
           battle={battle}
-          battleParticipant={curentBattleParticipant}
+          battleParticipant={currentParticipant}
           onTurnEnded={handleTurnEnded}
         />
       </section>
       <section>
-        <NextParticipants battleParticipants={nextBattleParticipants} />
+        <NextParticipants battleParticipants={nextParticipants} />
       </section>
     </Layout>
   );
