@@ -1,5 +1,5 @@
 import { v4 as uuidV4 } from "uuid";
-import { BattleParticipant } from "./battle-participant";
+import { BattleParticipant, isHero } from "./battle-participant";
 
 export enum STATES {
   CREATED = 1,
@@ -67,6 +67,23 @@ export const endBattleTurn = (battle: Battle): Battle => {
   };
 };
 
+export const updateParticipant = (
+  battle: Battle,
+  participant: BattleParticipant
+): Battle => {
+  const fieldToUpdate: keyof Battle = isHero(participant)
+    ? "heroes"
+    : "enemies";
+
+  return {
+    ...battle,
+    [fieldToUpdate]: [
+      participant,
+      ...battle[fieldToUpdate].filter((p) => p.uuid !== participant.uuid),
+    ],
+  };
+};
+
 // state management
 
 export const hasCreatedState = (battle: Battle) =>
@@ -91,9 +108,7 @@ export const hasStartedState = (battle: Battle) =>
 
 export const getParticipantsSortedByInitiative = (battle: Battle) => {
   return (
-    [...battle.heroes, ...battle.enemies]
-      // remove dead participants
-      .filter((participant) => participant.hp > 0)
+    getParticipantsWithoutDeadEnemies(battle)
       // if first round, remove surprised participants
       .filter((participant) => battle.round > 1 || !participant.isSurprised)
       // order by initiative (advantage for heroes in case of same initiative)
@@ -102,4 +117,11 @@ export const getParticipantsSortedByInitiative = (battle: Battle) => {
 };
 
 export const getParticipantCount = (battle: Battle): number =>
-  battle.heroes.length + battle.enemies.length;
+  getParticipantsWithoutDeadEnemies(battle).length;
+
+const getParticipantsWithoutDeadEnemies = (
+  battle: Battle
+): BattleParticipant[] =>
+  [...battle.heroes, ...battle.enemies].filter(
+    (participant) => isHero(participant) || participant.hp > 0
+  );

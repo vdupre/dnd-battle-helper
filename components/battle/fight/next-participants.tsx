@@ -4,10 +4,12 @@ import { BattleParticipantForm } from "./battle-participant-form";
 
 interface NextParticipantsProps {
   battleParticipants: BattleParticipant[];
+  onBattleParticipantUpdated: (battleParticipant: BattleParticipant) => void;
 }
 
 export const NextParticipants: React.FC<NextParticipantsProps> = ({
   battleParticipants,
+  onBattleParticipantUpdated,
 }) => {
   return (
     <div>
@@ -18,7 +20,10 @@ export const NextParticipants: React.FC<NextParticipantsProps> = ({
             key={`other-participant-${battleParticipant.uuid}`}
             className="mb-2"
           >
-            <BattleParticipantForm battleParticipant={battleParticipant} />
+            <BattleParticipantForm
+              battleParticipant={battleParticipant}
+              onBattleParticipantUpdated={onBattleParticipantUpdated}
+            />
           </li>
         ))}
       </ul>

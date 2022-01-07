@@ -8,12 +8,14 @@ interface CurrentParticipantProps {
   battle: Battle;
   battleParticipant: BattleParticipant;
   onTurnEnded: (battle: Battle) => void;
+  onBattleParticipantUpdated: (battleParticipant: BattleParticipant) => void;
 }
 
 export const CurrentParticipant: React.FC<CurrentParticipantProps> = ({
   battle,
   battleParticipant,
   onTurnEnded,
+  onBattleParticipantUpdated,
 }) => {
   // handlers
   const handleEndTurnClicked = () => {
@@ -32,6 +34,7 @@ export const CurrentParticipant: React.FC<CurrentParticipantProps> = ({
       <BattleParticipantForm
         formDisplayed
         battleParticipant={battleParticipant}
+        onBattleParticipantUpdated={onBattleParticipantUpdated}
       />
     </div>
   );

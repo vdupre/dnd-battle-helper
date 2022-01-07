@@ -75,3 +75,27 @@ export const setupBattleParticipantParams = (
   initiative,
   isSurprised,
 });
+
+export const updateBattleParticipantHp = (
+  battleParticipant: BattleParticipant,
+  damage: number,
+  healing: number
+): BattleParticipant => {
+  let newHp = battleParticipant.hp + healing - damage;
+  if (newHp > battleParticipant.maxHp) {
+    newHp = battleParticipant.maxHp;
+  }
+
+  return {
+    ...battleParticipant,
+    hp: newHp,
+  };
+};
+
+// field management
+export const isHero = (battleParticipant: BattleParticipant): boolean => {
+  return PARTICIPANT_TYPE.HERO === battleParticipant.type;
+};
+export const isEnemy = (battleParticipant: BattleParticipant): boolean => {
+  return PARTICIPANT_TYPE.ENEMY === battleParticipant.type;
+};

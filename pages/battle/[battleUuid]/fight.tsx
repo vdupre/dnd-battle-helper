@@ -2,8 +2,6 @@ import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useLocalStorage } from "usehooks-ts";
 import { BattleHeader } from "../../../components/battle/battle-header";
-import { RoundOrder } from "../../../components/battle/battle-header/round-order";
-import { BattleParticipantForm } from "../../../components/battle/fight/battle-participant-form";
 import { CurrentParticipant } from "../../../components/battle/fight/current-participant";
 import { NextParticipants } from "../../../components/battle/fight/next-participants";
 import { Layout } from "../../../components/layout";
@@ -11,7 +9,9 @@ import {
   Battle,
   getParticipantCount,
   getParticipantsSortedByInitiative,
+  updateParticipant,
 } from "../../../models/battle";
+import { BattleParticipant } from "../../../models/battle-participant";
 import { generateBattleHomepageUrl } from "../../../utils/routing";
 import { STORAGE_KEYS } from "../../../utils/storage";
 
@@ -46,17 +46,31 @@ const Battle: NextPage = () => {
     nextParticipants.push(sortedParticipants[i]);
   }
 
-  // const nextParticipants = sortedParticipants.filter(
-  //   (b) => b.uuid !== currentParticipant.uuid
-  // );
-
   // handlers
-  const handleTurnEnded = (updatedBattle: Battle) => {
+  const updateBattleIntoTheState = (updatedBattle: Battle) => {
     setBattles([
       updatedBattle,
       ...battles.filter((b) => b.uuid !== updatedBattle.uuid),
     ]);
   };
+
+  const handleTurnEnded = (updatedBattle: Battle) => {
+    updateBattleIntoTheState(updatedBattle);
+  };
+
+  const handleBattleParticipantUpdated = (
+    updatedParticipant: BattleParticipant
+  ) => {
+    const updatedBattle = updateParticipant(battle, updatedParticipant);
+    updateBattleIntoTheState(updatedBattle);
+  };
+
+  console.log({
+    sortedParticipants,
+    currentParticipant,
+    nextParticipants,
+    x: battle.turn - 1,
+  });
 
   return (
     <Layout>
@@ -68,10 +82,14 @@ const Battle: NextPage = () => {
           battle={battle}
           battleParticipant={currentParticipant}
           onTurnEnded={handleTurnEnded}
+          onBattleParticipantUpdated={handleBattleParticipantUpdated}
         />
       </section>
       <section>
-        <NextParticipants battleParticipants={nextParticipants} />
+        <NextParticipants
+          battleParticipants={nextParticipants}
+          onBattleParticipantUpdated={handleBattleParticipantUpdated}
+        />
       </section>
     </Layout>
   );
