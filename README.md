@@ -13,11 +13,11 @@ Small mobile app to help you follow what is happening during your Dungeons & Dra
 - Feature: Define HP & initiative for each ones
 - Feature: Display enemies HP (hidden by default)
 - Feature: Start the battle
+- Feature: Rounds & turns management: who's next to act
+- Feature: Take damage or receive healing
 
 ### To do
 
-- Feature: Rounds & turns management: who's next to act
-- Feature: Take damage or receive healing
 - Feature: Condition management: charmed, unconscious..
 - Feature: Spell duration
 - Chore: Translation

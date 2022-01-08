@@ -53,7 +53,26 @@ export const startBattle = (battle: Battle): Battle => ({
   state: STATES.STARTED,
 });
 
-export const endBattleTurn = (battle: Battle): Battle => {
+export const previousBattleTurn = (battle: Battle): Battle => {
+  const turnCount = getParticipantCount(battle);
+  const currentTurn = battle.turn;
+  const currentRound = battle.round;
+
+  const shouldBePreviousRound = currentTurn - 1 === 0;
+
+  // security: nothing before t1, r1
+  if (currentTurn === 1 && currentRound === 1) {
+    return battle;
+  }
+
+  return {
+    ...battle,
+    turn: shouldBePreviousRound ? turnCount : currentTurn - 1,
+    round: shouldBePreviousRound ? currentRound - 1 : currentRound,
+  };
+};
+
+export const nextBattleTurn = (battle: Battle): Battle => {
   const turnCount = getParticipantCount(battle);
   const currentTurn = battle.turn;
   const currentRound = battle.round;

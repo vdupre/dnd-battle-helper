@@ -2,6 +2,7 @@ import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useLocalStorage } from "usehooks-ts";
 import { BattleHeader } from "../../../components/battle/battle-header";
+import { BattleActions } from "../../../components/battle/fight/battle-actions/battle-actions";
 import { CurrentParticipant } from "../../../components/battle/fight/current-participant";
 import { NextParticipants } from "../../../components/battle/fight/next-participants";
 import { Layout } from "../../../components/layout";
@@ -55,7 +56,7 @@ const Battle: NextPage = () => {
     ]);
   };
 
-  const handleTurnEnded = (updatedBattle: Battle) => {
+  const handleTurnChanged = (updatedBattle: Battle) => {
     updateBattleIntoTheState(updatedBattle);
   };
 
@@ -66,20 +67,16 @@ const Battle: NextPage = () => {
     updateBattleIntoTheState(updatedBattle);
   };
 
-  console.log({
-    x: getParticipantsSortedByNextTurns(battle),
-  });
-
   return (
     <Layout>
       <section>
         <BattleHeader displayRoundOrder battle={battle} />
+        <BattleActions battle={battle} onTurnChanged={handleTurnChanged} />
       </section>
       <section>
         <CurrentParticipant
           battle={battle}
           battleParticipant={currentParticipant}
-          onTurnEnded={handleTurnEnded}
           onBattleParticipantUpdated={handleBattleParticipantUpdated}
         />
       </section>
