@@ -1,6 +1,7 @@
 import React, { SyntheticEvent, useRef, useState } from "react";
 import {
   BattleParticipant,
+  isEnemy,
   // CONDITIONS,
   updateBattleParticipantHp,
 } from "../../../models/battle-participant";
@@ -14,7 +15,6 @@ interface BattleParticipantFormProps {
 
 export const BattleParticipantForm: React.FC<BattleParticipantFormProps> = ({
   battleParticipant,
-  formDisplayed = false,
   onBattleParticipantUpdated,
 }) => {
   const formRef =
@@ -25,8 +25,7 @@ export const BattleParticipantForm: React.FC<BattleParticipantFormProps> = ({
     useRef<HTMLInputElement>() as React.MutableRefObject<HTMLInputElement>;
 
   // states
-  const [isFormDisplayed, setIsFormDisplayed] =
-    useState<boolean>(formDisplayed);
+  const [isFormDisplayed, setIsFormDisplayed] = useState<boolean>(false);
   // const [areConditionsDisplayed, setAreConditionsDisplayed] =
   //   useState<boolean>(false);
 
@@ -65,13 +64,17 @@ export const BattleParticipantForm: React.FC<BattleParticipantFormProps> = ({
     <div className="border p-2 rounded-md">
       <div className="mb-2">
         <div
-          className="flex flex-row space-x-2 items-center cursor-pointer"
+          className="flex flex-row justify-between items-center cursor-pointer"
           onClick={handleParticipantInfoClicked}
         >
           <div className="font-semibold text-lg p-0">
             {battleParticipant.name}
           </div>
-          <div>
+          <div
+            className={
+              isEnemy(battleParticipant) ? "blur-sm hover:blur-none" : ""
+            }
+          >
             HP: {battleParticipant.hp} / {battleParticipant.maxHp}
           </div>
         </div>

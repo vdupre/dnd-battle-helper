@@ -9,6 +9,7 @@ import {
   Battle,
   getParticipantCount,
   getParticipantsSortedByInitiative,
+  getParticipantsSortedByNextTurns,
   updateParticipant,
 } from "../../../models/battle";
 import { BattleParticipant } from "../../../models/battle-participant";
@@ -66,10 +67,7 @@ const Battle: NextPage = () => {
   };
 
   console.log({
-    sortedParticipants,
-    currentParticipant,
-    nextParticipants,
-    x: battle.turn - 1,
+    x: getParticipantsSortedByNextTurns(battle),
   });
 
   return (

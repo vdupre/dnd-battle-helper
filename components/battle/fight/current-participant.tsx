@@ -32,7 +32,6 @@ export const CurrentParticipant: React.FC<CurrentParticipantProps> = ({
         </div>
       </div>
       <BattleParticipantForm
-        formDisplayed
         battleParticipant={battleParticipant}
         onBattleParticipantUpdated={onBattleParticipantUpdated}
       />

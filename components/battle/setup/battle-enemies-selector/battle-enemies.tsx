@@ -14,18 +14,14 @@ export const BattleEnemies: React.FC<AvailableHeroesProps> = ({
       {battleEnemies.map((battleEnemy) => (
         <div
           key={`battle-hero-${battleEnemy.uuid}`}
-          className="flex flex-row space-x-2 items-center pb-2"
+          className="flex flex-row justify-between items-center pb-2"
         >
-          <div className="grow">{battleEnemy.name}</div>
-          <div className="flex-none w-1/4 md:w-1/6 blur-sm hover:blur-none">
-            {battleEnemy.hp} hp
+          <div className="w-1/2">{battleEnemy.name}</div>
+          <div className="w-28 pr-2 blur-sm hover:blur-none">
+            HP: {battleEnemy.hp}/{battleEnemy.maxHp}
           </div>
-          <div className="flex-none w-1/4 md:w-1/6">
-            {battleEnemy.initiative} initiative
-          </div>
-          <div className="flex-none">
-            {battleEnemy.isSurprised ? "😮" : "🙂"}
-          </div>
+          <div className="w-14 pr-2">I: {battleEnemy.initiative}</div>
+          <div className="">{battleEnemy.isSurprised ? "😮" : "🙂"}</div>
         </div>
       ))}
     </div>

@@ -125,3 +125,12 @@ const getParticipantsWithoutDeadEnemies = (
   [...battle.heroes, ...battle.enemies].filter(
     (participant) => isHero(participant) || participant.hp > 0
   );
+
+export const getParticipantsSortedByNextTurns = (battle: Battle) => {
+  const aliveParticipants = getParticipantsSortedByInitiative(battle);
+
+  return [
+    ...aliveParticipants.splice(battle.turn - 1),
+    ...aliveParticipants.slice(0, battle.turn - 1),
+  ];
+};
