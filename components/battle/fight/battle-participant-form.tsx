@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React, { SyntheticEvent, useRef, useState } from "react";
 import {
   BattleParticipant,
@@ -84,11 +85,8 @@ export const BattleParticipantForm: React.FC<BattleParticipantFormProps> = ({
           {/* damage & healing */}
           <div className="mb-2">
             <div className="flex flex-row items-center">
-              <div className="w-28">damage</div>
-              <div className="w-28">healing</div>
-            </div>
-            <div className="flex flex-row items-center">
-              <div className="w-28 pr-2">
+              <Image src="/battle.svg" width={24} height={24} alt="damage" />
+              <div className="w-20 mx-2">
                 <input
                   ref={damageInputRef}
                   type="number"
@@ -98,7 +96,8 @@ export const BattleParticipantForm: React.FC<BattleParticipantFormProps> = ({
                   onChange={resetHealingField}
                 />
               </div>
-              <div className="w-28 pr-2">
+              <Image src="/health.svg" width={24} height={24} alt="healing" />
+              <div className="w-20 ml-2 mr-6">
                 <input
                   ref={healingInputRef}
                   type="number"
@@ -109,6 +108,7 @@ export const BattleParticipantForm: React.FC<BattleParticipantFormProps> = ({
                   onChange={resetDamageField}
                 />
               </div>
+              <PrimaryButton submit>Validate</PrimaryButton>
             </div>
           </div>
 
@@ -138,9 +138,6 @@ export const BattleParticipantForm: React.FC<BattleParticipantFormProps> = ({
               </div>
             )}
           </div> */}
-          <div className="text-right">
-            <PrimaryButton submit>Validate</PrimaryButton>
-          </div>
         </form>
       )}
     </div>
